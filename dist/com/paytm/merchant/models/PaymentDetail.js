@@ -36,6 +36,7 @@ class PaymentDetail {
         this.channelId = paymentDetailBuilder.channelId;
         this.orderId = paymentDetailBuilder.orderId;
         this.txnAmount = paymentDetailBuilder.txnAmount;
+        this.callbackUrl = paymentDetailBuilder.callbackUrl;
         this.userInfo = paymentDetailBuilder.userInfo;
         this.paytmSsoToken = paymentDetailBuilder.paytmSsoToken;
         this.enablePaymentMode = paymentDetailBuilder.enablePaymentMode;
@@ -104,6 +105,9 @@ class PaymentDetail {
     getTxnAmount() {
         return this.txnAmount;
     }
+    getCallbackUrl() {
+        return this.callbackUrl;
+    }
     /**
      * @return \Paytm\pg\models\UserInfo
      */
@@ -161,7 +165,7 @@ class PaymentDetail {
         body.setEnablePaymentMode(this.getEnablePaymentMode());
         body.setDisablePaymentMode(this.getDisablePaymentMode());
         body.setPromoCode(this.getPromoCode());
-        body.setCallbackUrl(_MerchantProperties.MerchantProperties.getCallbackUrl());
+        body.setCallbackUrl(this.getCallbackUrl());
         body.setGoods(this.getGoods());
         body.setShippingInfo(this.getShippingInfo());
         body.setExtendInfo(this.getExtendInfo());
@@ -189,7 +193,7 @@ class PaymentDetailBuilder {
      * @param \Paytm\pg\models\UserInfo userInfo
      * @throws \Exception
      */
-    constructor(channelId, orderId, txnAmount, userInfo) {
+    constructor(channelId, orderId, txnAmount, userInfo, callbackUrl) {
         /**
          * @var int
          * Default value of readTimeout is 80000
@@ -211,6 +215,7 @@ class PaymentDetailBuilder {
         this.orderId = orderId;
         this.txnAmount = txnAmount;
         this.userInfo = userInfo;
+        this.callbackUrl = callbackUrl;
     }
     /**
      * @return paymentDetail
@@ -286,6 +291,10 @@ class PaymentDetailBuilder {
      */
     setTxnAmount(txnAmount) {
         this.txnAmount = txnAmount;
+        return this;
+    }
+    setCallbackUrl(callbackUrl) {
+        this.callbackUrl = callbackUrl;
         return this;
     }
     /**

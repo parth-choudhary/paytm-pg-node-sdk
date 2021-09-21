@@ -16,6 +16,7 @@ export declare class PaymentDetail {
      * @var \Paytm\pg\models\Money
      */
     private txnAmount;
+    private callbackUrl;
     /**
      * @var \Paytm\pg\models\UserInfo
      */
@@ -111,6 +112,7 @@ export declare class PaymentDetail {
      * @return \Paytm\pg\models\Money
      */
     getTxnAmount(): any;
+    getCallbackUrl(): string;
     /**
      * @return \Paytm\pg\models\UserInfo
      */
@@ -160,6 +162,7 @@ export declare class PaymentDetailBuilder {
      * @var \Paytm\pg\models\Money
      */
     txnAmount: any;
+    callbackUrl: string;
     /**
      * @var \Paytm\pg\models\UserInfo
      */
@@ -221,7 +224,7 @@ export declare class PaymentDetailBuilder {
      * @param \Paytm\pg\models\UserInfo userInfo
      * @throws \Exception
      */
-    constructor(channelId: string, orderId: string, txnAmount: any, userInfo: any);
+    constructor(channelId: string, orderId: string, txnAmount: any, userInfo: any, callbackUrl: string);
     /**
      * @return paymentDetail
      */
@@ -270,6 +273,7 @@ export declare class PaymentDetailBuilder {
      * @return this
      */
     setTxnAmount(txnAmount: any): PaymentDetailBuilder;
+    setCallbackUrl(callbackUrl: any): PaymentDetailBuilder;
     /**
      * @param \Paytm\pg\models\UserInfo userInfo
      * @return this

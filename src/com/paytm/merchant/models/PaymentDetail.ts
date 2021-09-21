@@ -30,6 +30,8 @@ export class PaymentDetail {
      */
     private txnAmount;
 
+    private callbackUrl: string;
+
     /**
      * @var \Paytm\pg\models\UserInfo
      */
@@ -106,6 +108,7 @@ export class PaymentDetail {
         this.channelId = paymentDetailBuilder.channelId;
         this.orderId = paymentDetailBuilder.orderId;
         this.txnAmount = paymentDetailBuilder.txnAmount;
+	this.callbackUrl = paymentDetailBuilder.callbackUrl;
         this.userInfo = paymentDetailBuilder.userInfo;
 
         this.paytmSsoToken = paymentDetailBuilder.paytmSsoToken;
@@ -185,6 +188,10 @@ export class PaymentDetail {
         return this.txnAmount;
     }
 
+    public getCallbackUrl() {
+        return this.callbackUrl;
+    }
+
     /**
      * @return \Paytm\pg\models\UserInfo
      */
@@ -249,7 +256,7 @@ export class PaymentDetail {
         body.setEnablePaymentMode(this.getEnablePaymentMode());
         body.setDisablePaymentMode(this.getDisablePaymentMode());
         body.setPromoCode(this.getPromoCode());
-        body.setCallbackUrl(_MerchantProperties.MerchantProperties.getCallbackUrl());
+        body.setCallbackUrl(this.getCallbackUrl());
         body.setGoods(this.getGoods());
         body.setShippingInfo(this.getShippingInfo());
         body.setExtendInfo(this.getExtendInfo());
@@ -287,6 +294,7 @@ export class PaymentDetailBuilder {
      * @var \Paytm\pg\models\Money
      */
     public txnAmount;
+    public callbackUrl: string;
 
     /**
      * @var \Paytm\pg\models\UserInfo
@@ -362,7 +370,7 @@ export class PaymentDetailBuilder {
      * @param \Paytm\pg\models\UserInfo userInfo
      * @throws \Exception
      */
-    public constructor(channelId: string, orderId: string, txnAmount, userInfo) {
+    public constructor(channelId: string, orderId: string, txnAmount, userInfo, callbackUrl: string) {
         if (_CommonUtil.CommonUtil.isEmptyOrNull(channelId)) {
             throw new _SDKException.SDKException("ChannelId can not be null or empty");
         }
@@ -383,6 +391,7 @@ export class PaymentDetailBuilder {
         this.orderId = orderId;
         this.txnAmount = txnAmount;
         this.userInfo = userInfo;
+	this.callbackUrl = callbackUrl;
     }
 
     /**
@@ -468,6 +477,11 @@ export class PaymentDetailBuilder {
      */
     public setTxnAmount(txnAmount): PaymentDetailBuilder {
         this.txnAmount = txnAmount;
+        return this;
+    }
+
+    public setCallbackUrl(callbackUrl): PaymentDetailBuilder {
+        this.callbackUrl = callbackUrl;
         return this;
     }
 
